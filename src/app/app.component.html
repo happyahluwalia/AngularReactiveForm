@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!--
+          Create a Form with the following Controls and Validators
+          1) Project Name (should not be empty)
+          2) Mail (should not be a empty and a valid email)
+          3) Project Status Dropdown, with three values: 'Stable', 'Critical', 'Finished'
+          4) Submit Button
+
+          Add your own Validator which doesn't allow "Test" as a Project Name
+
+          Also implement that Validator as an async Validator (replace the other one)
+
+          Upon submitting the form, simply print the value to the console
+      -->
+        <form [formGroup]="projForm" (ngSubmit)="onSubmit()">
+                <label >Enter project name - </label>
+                <input class="form-control" name="projectname" formControlName="projectname" />
+                <br />
+                <span *ngIf="!projForm.get('projectname').valid && projForm.get('projectname').touched"
+                  class="help-block">
+                <span *ngIf="projForm.get('projectname').errors['InvalidProjName']">This name is invalid!</span>
+                <span *ngIf="projForm.get('projectname').errors['required']">This field is required!</span>
+            </span>
+                <!--<span *ngIf="!projForm.get('projectname').valid && projForm.get('projectname').touched">Project Name is required</span><br/>
+                <span *ngIf="projForm.get('projectname').errors['InvalidProjName']">Project Name cannot be Test</span><br /> --> 
+                <label >Enter email - </label>
+                <input class="form-control" name="email" formControlName="email"/>
+                <br />
+                 <span *ngIf="!projForm.get('email').valid && projForm.get('email').touched"
+                  class="help-block">
+                         <span *ngIf="projForm.get('email').errors['required']">Email is required</span><br />
+                        <span *ngIf="projForm.get('email').errors['email']">Enter a valid email</span><br />
+                </span>
+                <label>Status - </label>
+                <select name="status" formControlName="status">
+                    <option value="stable">Stable</option>
+                    <option value="critical">Critical</option>
+                    <option value="finished">Finished</option>
+                </select>
+            <br/>
+            
+                <button type="submit" name="submit" [disabled]="!projForm.valid" class="btn btn-primary">Submit</button>
+</form>
+    </div>
+  </div>
+</div>
